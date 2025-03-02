@@ -1,9 +1,5 @@
 package shared_dto
 
-type ColorInputDTO struct {
-	TID string `json:"tid"`
-}
-
 type HSL struct {
 	H, S, L float64 // Hue (0-360), Saturation (0-100), Lightness (0-100)
 }

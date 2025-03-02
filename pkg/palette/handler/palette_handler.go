@@ -1,4 +1,4 @@
-package color_handler
+package palette_handler
 
 import (
 	"fmt"
@@ -8,23 +8,23 @@ import (
 	"net/http"
 )
 
-type ColorHandler struct {
-	colorService shared_interface.ColorServiceInterface
+type PaletteHandler struct {
+	paletteService shared_interface.PaletteServiceInterface
 }
 
-func NewColorHandler(colorService shared_interface.ColorServiceInterface) *ColorHandler {
-	return &ColorHandler{colorService}
+func NewPaletteHandler(paletteService shared_interface.PaletteServiceInterface) *PaletteHandler {
+	return &PaletteHandler{paletteService}
 }
 
-func (h *ColorHandler) RandomPalette(c *gin.Context) {
+func (h *PaletteHandler) RandomPalette(c *gin.Context) {
 	randomColor := shared_utils.RandomHexColor()
-	colorPalette := h.colorService.GenerateColorPalette(randomColor)
+	colorPalette := h.paletteService.GenerateColorPalette(randomColor)
 	c.JSON(http.StatusOK, shared_utils.ToColorPaletteResponse(colorPalette))
 }
 
-func (h *ColorHandler) GenerateColorPalette(c *gin.Context) {
+func (h *PaletteHandler) GenerateColorPalette(c *gin.Context) {
 	baseColor := c.Query("base")
-	colorPalette := h.colorService.GenerateColorPalette(baseColor)
+	colorPalette := h.paletteService.GenerateColorPalette(baseColor)
 	if len(colorPalette) == 6 {
 		c.JSON(http.StatusOK, shared_utils.ToColorPaletteResponse(colorPalette))
 		return

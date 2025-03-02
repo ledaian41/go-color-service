@@ -1,4 +1,4 @@
-package color_service
+package palette_service
 
 import (
 	"github.com/ledaian41/go-color-service/pkg/shared/dto"
@@ -6,13 +6,13 @@ import (
 	"math"
 )
 
-type ColorService struct{}
+type PaletteService struct{}
 
-func NewColorService() *ColorService {
-	return &ColorService{}
+func NewPaletteService() *PaletteService {
+	return &PaletteService{}
 }
 
-func (c ColorService) GenerateColorPalette(mainColor string) []string {
+func (c PaletteService) GenerateColorPalette(mainColor string) []string {
 	hsl := shared_utils.HexToHSL(mainColor)
 	if hsl == nil {
 		return []string{}
