@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/ledaian41/go-color-service/pkg/palette/handler"
 	"github.com/ledaian41/go-color-service/pkg/palette/service"
+	"os"
 )
 
 func main() {
@@ -15,5 +16,9 @@ func main() {
 	r.GET("/palette/:v/generate", paletteHandler.GenerateColorPalette)
 	r.GET("/palette/:v/random", paletteHandler.RandomPalette)
 
-	r.Run("localhost:8080")
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080" // Default port 8080
+	}
+	r.Run("0.0.0.0:" + port)
 }
