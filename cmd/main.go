@@ -12,8 +12,8 @@ func main() {
 	paletteService := palette_service.NewPaletteService()
 	paletteHandler := palette_handler.NewPaletteHandler(paletteService)
 
-	r.GET("/palette/generate", paletteHandler.GenerateColorPalette)
-	r.GET("/palette/random", paletteHandler.RandomPalette)
+	r.GET("/palette/:v/generate", paletteHandler.GenerateColorPalette)
+	r.GET("/palette/:v/random", paletteHandler.RandomPalette)
 
 	r.Run("localhost:8080")
 }

@@ -5,9 +5,15 @@ import (
 	"github.com/ledaian41/go-color-service/pkg/shared/dto"
 	"math"
 	"math/rand"
+	"regexp"
 	"strconv"
 	"time"
 )
+
+func IsValidHexColor(hex string) bool {
+	regex := regexp.MustCompile(`^#([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})$`)
+	return regex.MatchString(hex)
+}
 
 func RandomHexColor() string {
 	rand.Seed(time.Now().UnixNano())
@@ -17,7 +23,21 @@ func RandomHexColor() string {
 	return fmt.Sprintf("#%02X%02X%02X", r, g, b)
 }
 
+func expandHex3ToHex6(hex string) string {
+	if len(hex) == 4 {
+		r := string(hex[1]) + string(hex[1])
+		g := string(hex[2]) + string(hex[2])
+		b := string(hex[3]) + string(hex[3])
+		return "#" + r + g + b
+	}
+	return hex
+}
+
 func HexToHSL(hex string) *shared_dto.HSL {
+	if len(hex) < 6 {
+		hex = expandHex3ToHex6(hex)
+	}
+
 	r, err := strconv.ParseInt(hex[1:3], 16, 64)
 	if err != nil {
 		return nil
@@ -102,13 +122,35 @@ func HslToHex(h, s, l float64) string {
 	return fmt.Sprintf("#%02X%02X%02X", rInt, gInt, bInt)
 }
 
-func ToColorPaletteResponse(colors []string) shared_dto.CP6Response {
-	return shared_dto.CP6Response{
+func ToColorPalette4Response(colors []string) shared_dto.CPResponse {
+	return shared_dto.CPResponse{
+		Main:          colors[0],
+		Tint:          colors[1],
+		Shade:         colors[2],
+		Complementary: colors[3],
+	}
+}
+
+func ToColorPalette6Response(colors []string) shared_dto.CPResponse {
+	return shared_dto.CPResponse{
 		Main:            colors[0],
 		Tint:            colors[1],
 		Shade:           colors[2],
 		Complementary:   colors[3],
 		Analogous:       colors[4],
 		AnalogousSecond: colors[5],
+	}
+}
+
+func ToColorPalette8Response(colors []string) shared_dto.CPResponse {
+	return shared_dto.CPResponse{
+		Main:               colors[0],
+		Tint:               colors[1],
+		Shade:              colors[2],
+		Complementary:      colors[3],
+		ComplementaryLight: colors[4],
+		ComplementaryDark:  colors[5],
+		Analogous:          colors[6],
+		AnalogousSecond:    colors[7],
 	}
 }

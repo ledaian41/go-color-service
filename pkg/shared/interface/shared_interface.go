@@ -1,5 +1,5 @@
 package shared_interface
 
 type PaletteServiceInterface interface {
-	GenerateColorPalette(string) []string
+	GenerateColorPalette(string, int8) []string
 }
