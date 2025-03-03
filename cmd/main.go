@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/ledaian41/go-color-service/pkg/palette/handler"
 	"github.com/ledaian41/go-color-service/pkg/palette/service"
@@ -9,7 +10,7 @@ import (
 
 func main() {
 	r := gin.Default()
-
+	r.Use(cors.Default())
 	paletteService := palette_service.NewPaletteService()
 	paletteHandler := palette_handler.NewPaletteHandler(paletteService)
 
