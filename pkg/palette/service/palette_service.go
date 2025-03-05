@@ -25,15 +25,15 @@ func (c PaletteService) GenerateColorPalette(mainColor string, version int8) []s
 	case 4:
 		return []string{
 			mainColor,
-			adjustHSL(hsl, 0, 10, -20), // Tint (Primary Light)
-			adjustHSL(hsl, 0, -10, 20), // Shade (Primary Dark)
-			adjustHSL(hsl, 180, 0, 0),  // Complementary
+			adjustHSL(hsl, 0, 10, 20),   // Tint (Primary Light)
+			adjustHSL(hsl, 0, -10, -20), // Shade (Primary Dark)
+			adjustHSL(hsl, 180, 0, 0),   // Complementary
 		}
 	case 8:
 		return []string{
 			mainColor,
-			adjustHSL(hsl, 0, 10, -20),   // Tint (Primary Light)
-			adjustHSL(hsl, 0, -10, 20),   // Shade (Primary Dark)
+			adjustHSL(hsl, 0, 10, 20),    // Tint (Primary Light)
+			adjustHSL(hsl, 0, -10, -20),  // Shade (Primary Dark)
 			adjustHSL(hsl, 180, 0, 0),    // Complementary
 			adjustHSL(hsl, 180, 10, -20), // Complementary Light
 			adjustHSL(hsl, 180, -10, 20), // Complementary Dark
@@ -43,11 +43,11 @@ func (c PaletteService) GenerateColorPalette(mainColor string, version int8) []s
 	default:
 		return []string{
 			mainColor,
-			adjustHSL(hsl, 0, 10, -20), // Tint (Primary Light)
-			adjustHSL(hsl, 0, -10, 20), // Shade (Primary Dark)
-			adjustHSL(hsl, 180, 0, 0),  // Complementary
-			adjustHSL(hsl, 30, 0, 0),   // Analogous 1
-			adjustHSL(hsl, -30, 0, 0),  // Analogous 2
+			adjustHSL(hsl, 0, 10, 20),   // Tint (Primary Light)
+			adjustHSL(hsl, 0, -10, -20), // Shade (Primary Dark)
+			adjustHSL(hsl, 180, 0, 0),   // Complementary
+			adjustHSL(hsl, 30, 0, 0),    // Analogous 1
+			adjustHSL(hsl, -30, 0, 0),   // Analogous 2
 		}
 	}
 }
