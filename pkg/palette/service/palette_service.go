@@ -25,29 +25,30 @@ func (c PaletteService) GenerateColorPalette(mainColor string, version int8) []s
 	case 4:
 		return []string{
 			mainColor,
-			adjustHSL(hsl, 0, 10, 20),   // Tint (Primary Light)
-			adjustHSL(hsl, 0, -10, -20), // Shade (Primary Dark)
-			adjustHSL(hsl, 180, 0, 0),   // Complementary
+			adjustHSL(hsl, 0, -20, 15),  // Tint (Primary Light)
+			adjustHSL(hsl, 0, -15, -15), // Shade (Primary Dark)
+			adjustHSL(hsl, 180, -30, 0), // Complementary
 		}
 	case 8:
+		compHsl := shared_dto.HSL{H: math.Mod(hsl.H+180, 360), S: hsl.S - 30, L: hsl.L}
 		return []string{
 			mainColor,
-			adjustHSL(hsl, 0, 10, 20),    // Tint (Primary Light)
-			adjustHSL(hsl, 0, -10, -20),  // Shade (Primary Dark)
-			adjustHSL(hsl, 180, 0, 0),    // Complementary
-			adjustHSL(hsl, 180, 10, -20), // Complementary Light
-			adjustHSL(hsl, 180, -10, 20), // Complementary Dark
-			adjustHSL(hsl, 30, 0, 0),     // Analogous 1
-			adjustHSL(hsl, -30, 0, 0),    // Analogous 2
+			adjustHSL(hsl, 0, -20, 15),      // Tint (Primary Light)
+			adjustHSL(hsl, 0, -15, -15),     // Shade (Primary Dark)
+			adjustHSL(&compHsl, 0, 0, 0),    // Complementary
+			adjustHSL(&compHsl, 0, -10, 15), // Complementary Light
+			adjustHSL(&compHsl, 0, -5, -15), // Complementary Dark
+			adjustHSL(hsl, 20, -10, 0),      // Analogous 1
+			adjustHSL(hsl, -20, -10, 5),     // Analogous 2
 		}
 	default:
 		return []string{
 			mainColor,
-			adjustHSL(hsl, 0, 10, 20),   // Tint (Primary Light)
-			adjustHSL(hsl, 0, -10, -20), // Shade (Primary Dark)
-			adjustHSL(hsl, 180, 0, 0),   // Complementary
-			adjustHSL(hsl, 30, 0, 0),    // Analogous 1
-			adjustHSL(hsl, -30, 0, 0),   // Analogous 2
+			adjustHSL(hsl, 0, -20, 15),  // Tint (Primary Light)
+			adjustHSL(hsl, 0, -15, -15), // Shade (Primary Dark)
+			adjustHSL(hsl, 180, -30, 0), // Complementary
+			adjustHSL(hsl, 20, -10, 0),  // Analogous 1
+			adjustHSL(hsl, -20, -10, 5), // Analogous 2
 		}
 	}
 }
