@@ -122,6 +122,29 @@ func HslToHex(h, s, l float64) string {
 	return fmt.Sprintf("#%02X%02X%02X", rInt, gInt, bInt)
 }
 
+func HexToRgb(hex string) *shared_dto.RGB {
+	if len(hex) < 6 {
+		hex = expandHex3ToHex6(hex)
+	}
+
+	r, err := strconv.ParseInt(hex[1:3], 16, 64)
+	if err != nil {
+		return nil
+	}
+
+	g, err := strconv.ParseInt(hex[3:5], 16, 64)
+	if err != nil {
+		return nil
+	}
+
+	b, err := strconv.ParseInt(hex[5:7], 16, 64)
+	if err != nil {
+		return nil
+	}
+
+	return &shared_dto.RGB{R: float64(r) / 255, G: float64(g) / 255, B: float64(b) / 255}
+}
+
 func ToColorPalette4Response(colors []string) shared_dto.CPResponse {
 	return shared_dto.CPResponse{
 		Main:          colors[0],

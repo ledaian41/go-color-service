@@ -4,6 +4,10 @@ type HSL struct {
 	H, S, L float64 // Hue (0-360), Saturation (0-100), Lightness (0-100)
 }
 
+type RGB struct {
+	R, G, B float64
+}
+
 type CPResponse struct {
 	Main               string `json:"primary"`
 	Tint               string `json:"primary-light"`
