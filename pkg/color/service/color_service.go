@@ -18,7 +18,11 @@ func (c ColorService) TextColor(background string) string {
 	}
 
 	rgb := shared_utils.HexToRgb(background)
-	if rgb == nil && getLuminance(rgb) > 0.5 {
+	if rgb == nil {
+		return "#000000"
+	}
+
+	if getLuminance(rgb) > 0.5 {
 		return "#000000"
 	}
 
